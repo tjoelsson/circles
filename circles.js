@@ -34,14 +34,16 @@
     this._radius         = options.radius;
     this._percentage     = options.percentage;
     this._text           = options.text; // #3
+    this._prefix         = options.prefix;
     this._number         = options.number || this._percentage;
     this._strokeWidth    = options.width  || 10;
     this._colors         = options.colors || ['#EEE', '#F00'];
     this._interval       = 16;
     this._textWrpClass   = 'circles-text-wrp';
     this._textClass      = 'circles-text';
+    this._prefixClass    = 'circles-prefix';
     this._numberClass    = 'circles-number';
-    
+
     this._confirmAnimation(options.duration);
 
     var endAngleRad      = Math.PI / 180 * 270;
@@ -141,8 +143,11 @@
 
     _generateText: function() {
       var html =  '<div class="' + this._textWrpClass + '" style="position:absolute; top:0; left:0; text-align:center; width:100%;' +
-        ' font-size:' + this._radius * .7 + 'px; height:' + this._svgSize + 'px; line-height:' + this._svgSize + 'px;">' + 
-        this._calculateNumber(this._canAnimate ? 0 : this._number);
+        ' font-size:' + this._radius * .7 + 'px; height:' + this._svgSize + 'px; line-height:' + this._svgSize + 'px;">';
+      if (this._prefix) {
+        html += '<span class="' + this._prefixClass + '">' + this._prefix + '</span>';
+      }
+      html += this._calculateNumber(this._canAnimate ? 0 : this._number);
       if (this._text) {
         html += '<span class="' + this._textClass + '">' + this._text + '</span>';
       }
